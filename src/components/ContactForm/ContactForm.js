@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
 
@@ -120,7 +120,7 @@ const ContactForm = ({ onSubmit }) => {
 
 ContactForm.propTypes = {
   onSubmit: PropTypes.func,
-  //   handleSubmit: PropTypes.func,
+  handleSubmit: PropTypes.func,
 };
 
 export default ContactForm;

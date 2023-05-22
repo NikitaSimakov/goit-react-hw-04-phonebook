@@ -1,11 +1,18 @@
 import PropTypes from 'prop-types';
 import css from './ContactList.module.css';
 
-const ContactList = ({ contactListRender, deleteContactHandler }) => {
+const ContactList = ({ deleteContactHandler, contacts, filter }) => {
+  const contactListRender = () => {
+    return contacts
+      ? contacts.filter(contact =>
+          contact.name.toLowerCase().includes(filter.toLowerCase())
+        )
+      : [];
+  };
   return (
     <ul>
-      {contactListRender &&
-        contactListRender.map(contact => (
+      {contactListRender() &&
+        contactListRender().map(contact => (
           <li className={css.contactList_item} key={contact.id}>
             {contact.name}: {contact.number}
             <button
@@ -23,8 +30,9 @@ const ContactList = ({ contactListRender, deleteContactHandler }) => {
 };
 
 ContactList.propTypes = {
-  contactListRender: PropTypes.array.isRequired,
+  contacts: PropTypes.array.isRequired,
   deleteContactHandler: PropTypes.func.isRequired,
+  filter: PropTypes.string,
 };
 
 export default ContactList;
