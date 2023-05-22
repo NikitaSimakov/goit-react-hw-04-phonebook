@@ -12,23 +12,21 @@ export const App = () => {
   const [filter, setFilter] = useState('');
 
   useEffect(()=>{
-  contacts.length && localStorage.setItem('contacts', JSON.stringify(contacts))
-   
-  }, [contacts])
-
+const localData = JSON.parse(localStorage.getItem('contacts'));
+localData && setContacts(localData)
+  },[]);
   useEffect(()=>{
-    const localContacts = JSON.parse(localStorage.getItem('contacts'));
-    setContacts(localContacts)
-},[])
+    localStorage.setItem('contacts', JSON.stringify(contacts))
+  },[contacts])
 
 
 const formSubmitHandler = data => {
-  setContacts(()=>{
+  setContacts((prevState)=>{
     if(contacts?.some(contact => contact.name === data.name)) {
       Notify.failure(`${data.name}, is already in contact`)
       return contacts
     }
-    return [...contacts, { name: data.name, number:data.number, id: nanoid(3)}]
+    return [...prevState, { name: data.name, number:data.number, id: nanoid(3)}]
   })
 };
 

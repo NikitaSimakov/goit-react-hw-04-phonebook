@@ -30,7 +30,7 @@ const ContactList = ({ deleteContactHandler, contacts, filter }) => {
 };
 
 ContactList.propTypes = {
-  contacts: PropTypes.array.isRequired,
+  contacts: PropTypes.array,
   deleteContactHandler: PropTypes.func.isRequired,
   filter: PropTypes.string,
 };
