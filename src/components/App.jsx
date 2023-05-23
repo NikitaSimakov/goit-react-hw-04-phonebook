@@ -6,19 +6,12 @@ import Filter from './Filter/Filter'
 import ContactList from "./ContactList/ContactList";
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
-  // const [name, setName] = useState('');
-  // const [number, setNumber] = useState('');
+  const [contacts, setContacts] = useState(JSON.parse(localStorage.getItem('contacts')) ?? []);
   const [filter, setFilter] = useState('');
 
   useEffect(()=>{
-const localData = JSON.parse(localStorage.getItem('contacts'));
-localData && setContacts(localData)
-  },[]);
-  useEffect(()=>{
     localStorage.setItem('contacts', JSON.stringify(contacts))
   },[contacts])
-
 
 const formSubmitHandler = data => {
   setContacts((prevState)=>{
