@@ -1,14 +1,19 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useReducer} from "react";
 import { nanoid } from 'nanoid';
 import {Notify} from "notiflix";
 import ContactForm from "./ContactForm/ContactForm";
 import Filter from './Filter/Filter'
 import ContactList from "./ContactList/ContactList";
 
+const reducer = (state, action) => {
+  console.log(action)
+  if(action.type === "filter") return action.payload
+}
 export const App = () => {
   const [contacts, setContacts] = useState(()=>JSON.parse(localStorage.getItem('contacts')) ?? []);
-  const [filter, setFilter] = useState('');
-
+  // const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useReducer(reducer, '');
+console.log(filter)
   useEffect(()=>{
     localStorage.setItem('contacts', JSON.stringify(contacts))
   },[contacts])
@@ -26,7 +31,7 @@ const formSubmitHandler = data => {
 
   const filterChangeHandler = (event) => {
     const {value} = event.currentTarget;
-    setFilter(value)
+    setFilter({ type: "filter", payload: value})
   }
 
   const deleteContactHandler = (event) => {
